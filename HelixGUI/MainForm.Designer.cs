@@ -35,13 +35,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.logWindow = new System.Windows.Forms.TextBox();
+            this.clearLogButton = new System.Windows.Forms.Button();
+            this.daysBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBar
             // 
-            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.Location = new System.Drawing.Point(12, 414);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(646, 23);
@@ -50,7 +53,7 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(516, 105);
+            this.startButton.Location = new System.Drawing.Point(483, 39);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(75, 23);
             this.startButton.TabIndex = 1;
@@ -99,6 +102,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Location = new System.Drawing.Point(12, 167);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(328, 241);
@@ -106,11 +111,44 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Properties";
             // 
+            // logWindow
+            // 
+            this.logWindow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.logWindow.Location = new System.Drawing.Point(346, 167);
+            this.logWindow.Multiline = true;
+            this.logWindow.Name = "logWindow";
+            this.logWindow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.logWindow.Size = new System.Drawing.Size(312, 241);
+            this.logWindow.TabIndex = 7;
+            // 
+            // clearLogButton
+            // 
+            this.clearLogButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.clearLogButton.Location = new System.Drawing.Point(469, 138);
+            this.clearLogButton.Name = "clearLogButton";
+            this.clearLogButton.Size = new System.Drawing.Size(75, 23);
+            this.clearLogButton.TabIndex = 8;
+            this.clearLogButton.Text = "Clear";
+            this.clearLogButton.UseVisualStyleBackColor = true;
+            this.clearLogButton.Click += new System.EventHandler(this.clearLogButton_Click);
+            // 
+            // daysBox
+            // 
+            this.daysBox.Location = new System.Drawing.Point(469, 68);
+            this.daysBox.Name = "daysBox";
+            this.daysBox.Size = new System.Drawing.Size(100, 20);
+            this.daysBox.TabIndex = 9;
+            this.daysBox.Text = "1000";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(670, 449);
+            this.Controls.Add(this.daysBox);
+            this.Controls.Add(this.clearLogButton);
+            this.Controls.Add(this.logWindow);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.startButton);
@@ -120,6 +158,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -132,6 +171,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox logWindow;
+        private System.Windows.Forms.Button clearLogButton;
+        private System.Windows.Forms.TextBox daysBox;
     }
 }
 

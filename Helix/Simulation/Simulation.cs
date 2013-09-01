@@ -12,12 +12,16 @@ namespace Helix
     /// </summary>
     public class Simulation
     {
-        SQLiteDatabase database;
+        private SQLiteDatabase database;
+        private World world;
+        private int days;
 
         public Simulation(SimConfig config)
         {
             this.database = new SQLiteDatabase(config.DatabasePath);
-            Dictionary<string, string> data = new Dictionary<string, string>();
+            this.days = config.Days;
+
+            /*Dictionary<string, string> data = new Dictionary<string, string>();
             data.Add("id", "0");
             data.Add("mom", "1");
             data.Add("dad", "2");
@@ -25,7 +29,22 @@ namespace Helix
 
             this.database.Insert("people", data);
 
-            DataTable table = this.database.GetDataTable("SELECT * FROM people;");
+            DataTable table = this.database.GetDataTable("SELECT * FROM people;");*/
+        }
+
+        /// <summary>
+        /// Start the simulation.
+        /// </summary>
+        public void Run()
+        {
+            this.database.ClearDB();
+
+            world = new World(1, this.database);
+
+            for (int i = 0; i < days; i++) // Step through each day
+            {
+                world.AdvanceTime(1);
+            }
         }
     }
 
@@ -36,5 +55,6 @@ namespace Helix
     public class SimConfig
     {
         public String DatabasePath = "";
+        public int Days = 0;
     }
 }

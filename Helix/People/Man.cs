@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Helix
 {
-    class World
+    class Man : Person
     {
+        public Man(int id, World w) : base(id, w)
+        {
+            //
+        }
     }
 }

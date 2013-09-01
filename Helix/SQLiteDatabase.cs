@@ -187,7 +187,7 @@ namespace Helix
 		    DataTable tables;
 		    try
 		    {
-			    tables = this.GetDataTable("select NAME from SQLITE_MASTER where type=&#39;table&#39; order by NAME;");
+			    tables = this.GetDataTable("select NAME from SQLITE_MASTER where type='table' order by NAME;");
 			    foreach (DataRow table in tables.Rows)
 			    {
                     this.ClearTable(table["NAME"].ToString());

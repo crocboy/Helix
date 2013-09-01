@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Data.SQLite;
 using System.Text;
 using System.Windows.Forms;
 using Helix;
@@ -29,14 +30,33 @@ namespace HelixGUI
             }
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private void startButton_Click(object sender, EventArgs args)
         {
-            SimConfig config = new SimConfig()
+            try
             {
-                DatabasePath = dbNameBox.Text
-            };
+                SimConfig config = new SimConfig()
+                {
+                    DatabasePath = dbNameBox.Text,
+                    Days = Convert.ToInt32(daysBox.Text)
+                };
 
-            Simulation helix = new Simulation(config);
+                Simulation helix = new Simulation(config);
+
+                logWindow.AppendText("Simulation starting...\n");
+
+                helix.Run();// Run it!
+
+                logWindow.AppendText("Simulation completed!\n");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error starting simulation: " + e.ToString(), "Simulation Exception");
+            }
+        }
+
+        private void clearLogButton_Click(object sender, EventArgs e)
+        {
+            logWindow.Clear();
         }
     }
 }
