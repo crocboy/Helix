@@ -64,7 +64,7 @@
             this.dbNameBox.Name = "dbNameBox";
             this.dbNameBox.Size = new System.Drawing.Size(233, 20);
             this.dbNameBox.TabIndex = 2;
-            this.dbNameBox.Text = "C:\\helix.s3db";
+            this.dbNameBox.Text = "C:\\Users\\Joey\\Desktop\\helix.s3db";
             // 
             // browseButton
             // 

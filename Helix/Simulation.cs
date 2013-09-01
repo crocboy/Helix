@@ -25,7 +25,7 @@ namespace Helix
 
             this.database.Insert("people", data);
 
-            //DataTable table = this.database.GetDataTable("SELECT * FROM people;");
+            DataTable table = this.database.GetDataTable("SELECT * FROM people;");
         }
     }
 
