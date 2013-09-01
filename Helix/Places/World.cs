@@ -8,15 +8,15 @@ namespace Helix
     /// <summary>
     /// World represents all Regions and all people
     /// </summary>
-    class World  :Region
+    public class World  :Region
     {
         private SQLiteDatabase database;
         private int currentID = 1;
 
         private List<Region> childRegions = new List<Region>(0);
 
-        public List<Person> Alive = new List<Person>(0);
-        public List<Person> Dead = new List<Person>(0);
+        public List<Person> peopleQueue = new List<Person>(0);
+
 
         /// <summary>
         /// Public constructor
@@ -27,8 +27,8 @@ namespace Helix
         {
             this.database = db;
 
-            this.People.Add(new Woman(GetNewID(), this));
-            this.People.Add(new Woman(GetNewID(), this));
+            this.People.Add(new Woman(this, null, null));
+            this.People.Add(new Woman(this, null, null));
         }
 
 
@@ -40,13 +40,14 @@ namespace Helix
         {
             for (int i = 0; i < steps; i++)
             {
-                //foreach (Region region in childRegions)
-                //{
                     foreach (Person person in People)
                     {
                         person.NextDay(); // Advance the life of each person
                     }
-                //}
+
+                    /* Add the people in the queue */
+                    People.AddRange(peopleQueue);
+                    peopleQueue.Clear();
             }
         }
 
@@ -66,27 +67,8 @@ namespace Helix
         public void AddPerson(Person person)
         {
             //this.People.Add(person);
-            this.Alive.Add(person);
-            Insert(person);
-        }
-
-
-        /// <summary>
-        /// Insert a person into the simulation database
-        /// </summary>
-        /// <param name="person"></param>
-        private void Insert(Person person)
-        {
-            Dictionary<string, string> data = new Dictionary<string,string>();
-
-            data.Add("id", Convert.ToString(person.ID));
-            //data.Add("mom", Convert.ToString(person.ID));
-            //data.Add("dad", Convert.ToString(person.ID));
-            //data.Add("spouse", Convert.ToString(person.ID));
-            data.Add("life_state", Convert.ToString(person.LifeState));
-            data.Add("gender", Convert.ToString(person.Gender));
-
-            database.Insert("people", data);
+            this.peopleQueue.Add(person);
+            this.database.Insert("people", person.GetDBData());
         }
     }
 }

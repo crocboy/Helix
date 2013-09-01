@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Helix
 {
-    class Person
+    public class Person
     {
+        /* Constants used for constructing */
         public const int LIVE = 1;
         public const int DEAD = 0;
         public const int GENDER_MALE   = 0;
@@ -20,9 +21,8 @@ namespace Helix
         public int Age = 0;
         public int LifeState = LIVE;
         public String Name = "";
-        public Person Mom;
-        public Person Dad;
-        public Person Spouse;
+        public Person Mom = null;
+        public Person Dad = null;
         public List<Person> Children = new List<Person>();
         public World world;
 
@@ -31,12 +31,16 @@ namespace Helix
         /// <summary>
         /// Public constructor
         /// </summary>
-        /// <param name="id">Unique ID number for this person</param>
-        /// <param name="w">Reference to the Person's world</param>
-        public Person(int id, World w)
+        /// <param name="w">World to be inserted into</param>
+        /// <param name="dad">Father of this person</param>
+        /// <param name="mom">Mother of this person</param>
+        public Person(World w, Man dad, Woman mom)
         {
-            this.ID = id;
+            this.ID = w.GetNewID();
             this.world = w;
+
+            this.Dad = dad;
+            this.Mom = mom;
 
             this.world.AddPerson(this);
         }
@@ -51,9 +55,16 @@ namespace Helix
             if (Age >= MAX_LIFE) // We're dead :(
             {
                 LifeState = DEAD;
-                this.world.Alive.Remove(this);
-                this.world.Dead.Add(this);
             }
+        }
+
+        /// <summary>
+        /// Get a Dictionary of data suitable for inserting into the database
+        /// </summary>
+        /// <returns>Dictionary for inserting into the database</returns>
+        public virtual Dictionary<string, string> GetDBData()
+        {
+            throw new NotImplementedException("Person.GetDBData() not implemented!");
         }
     }
 }

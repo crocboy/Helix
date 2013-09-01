@@ -7,7 +7,7 @@ using System.Data.SQLite;
 
 namespace Helix
 {
-    class SQLiteDatabase
+    public class SQLiteDatabase
     {
 	    String dbConnection;
 
