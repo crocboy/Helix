@@ -15,12 +15,13 @@ namespace Helix
     {
         /* Callback methods */
         public delegate void OnProgressUpdated(int progress);
-        public delegate void SimulationCompleted(World world);
+        public delegate void SimulationCompleted(World world, long time);
         
         /* Event objects */
         public event OnProgressUpdated ProgressUpdated;
         public event SimulationCompleted SimulationComplete;
 
+        private DateTime startTime;
         private Thread simThread;
         private SQLiteDatabase database;
         private World world;
@@ -49,6 +50,7 @@ namespace Helix
                 Name = "Simulation Thread"
             };
 
+            startTime = DateTime.Now;
             simThread.Start();
         }
 
@@ -69,7 +71,7 @@ namespace Helix
                         ProgressUpdated(progress++);
                 }
 
-                SimulationComplete(world);
+                SimulationComplete(world, GetMs(startTime, DateTime.Now));
                 stopSimThread = true; // Stop the current Thread
             }
         }
@@ -80,9 +82,22 @@ namespace Helix
         public void Stop()
         {
             stopSimThread = true;
-            SimulationComplete(world);
+            SimulationComplete(world, GetMs(startTime, DateTime.Now));
+        }
+
+        /// <summary>
+        /// Return the number of milliseconds between two DateTime objects
+        /// </summary>
+        /// <param name="start">First DateTime</param>
+        /// <param name="end">Second DateTime</param>
+        /// <returns>Difference in ms between start and end</returns>
+        private long GetMs(DateTime start, DateTime end)
+        {
+            TimeSpan span = end - start;
+            return span.Milliseconds;
         }
     }
+
 
 
     /// <summary>

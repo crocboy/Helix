@@ -41,8 +41,6 @@ namespace Helix
 
             this.Dad = dad;
             this.Mom = mom;
-
-            this.world.AddPerson(this);
         }
 
         /// <summary>

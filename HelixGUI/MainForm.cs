@@ -22,9 +22,7 @@ namespace HelixGUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            helix = new Simulation();
-            helix.ProgressUpdated += OnProgressUpdated;
-            helix.SimulationComplete += SimulationComplete;
+            //
         }
 
         /* Browse button was pressed */
@@ -45,22 +43,14 @@ namespace HelixGUI
             {
                 if (startButton.Text == "Start") // Start the simulation
                 {
-                    SimConfig config = new SimConfig()
-                    {
-                        DatabasePath = dbNameBox.Text,
-                        Days = Convert.ToInt32(daysBox.Text)
-                    };
-
-                    logWindow.AppendText("Simulation starting...\n");
-                    helix.Start(config);// Run it!
-
+                    StartSimulation();
                     startButton.Text = "Stop";
                 }
                 else if (startButton.Text == "Stop") // Stop the simulation
                 {
                     if (helix != null)
                     {
-                        helix.Stop();
+                        StopSimulation();
                         startButton.Text = "Start";
                     }
                 }
@@ -72,22 +62,51 @@ namespace HelixGUI
         }
 
 
+        /// <summary>
+        /// Starts the Simulation using the GUI-defined parameters.
+        /// </summary>
+        public void StartSimulation()
+        {
+            SimConfig config = new SimConfig()
+            {
+                DatabasePath = dbNameBox.Text,
+                Days = Convert.ToInt32(daysBox.Text)
+            };
+
+            helix = new Simulation();
+            helix.ProgressUpdated += OnProgressUpdated;
+            helix.SimulationComplete += SimulationComplete;
+
+            logWindow.AppendText("Simulation starting...\n");
+            helix.Start(config);// Run it!
+        }
+
+        /// <summary>
+        /// Stop the Simulation.
+        /// </summary>
+        public void StopSimulation()
+        {
+            helix.Stop();
+        }
+
+
         /* Called when simulation progress is updated */
         private void OnProgressUpdated(int progress)
         {
-            this.Invoke( (MethodInvoker) delegate
+            this.Invoke((MethodInvoker)delegate
             {
                 progressBar.Value = progress; // runs on UI thread
             });
         }
 
         /* Called when Simulation is complete! */
-        private void SimulationComplete(World world)
+        private void SimulationComplete(World world, long time)
         {
-            this.Invoke((MethodInvoker)delegate
+            this.Invoke((MethodInvoker)delegate // Runs this on UI thread
             {
                 startButton.Text = "Start";
-                logWindow.AppendText("Simulation complete!\n");
+                logWindow.AppendText("Simulation completed in " + time.ToString() + " ms\n");
+                logWindow.AppendText("World had " + world.People.Count.ToString() + " people\n");
                 progressBar.Value = 0;
             });
         }
@@ -95,6 +114,12 @@ namespace HelixGUI
         private void clearLogButton_Click(object sender, EventArgs e)
         {
             logWindow.Clear();
+        }
+
+        /* Called when File -> Close is pressed */
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

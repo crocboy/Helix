@@ -27,8 +27,18 @@ namespace Helix
         {
             this.database = db;
 
-            this.People.Add(new Woman(this, null, null));
-            this.People.Add(new Woman(this, null, null));
+            Man Adam = new Man(this, null, null)
+            {
+                Name = "Adam"
+            };
+
+            Woman Eve = new Woman(this, null, null)
+            {
+                Name = "Eve"
+            };
+
+            AddPerson(Adam);
+            AddPerson(Eve);
         }
 
 
@@ -40,14 +50,14 @@ namespace Helix
         {
             for (int i = 0; i < steps; i++)
             {
-                    foreach (Person person in People)
-                    {
-                        person.NextDay(); // Advance the life of each person
-                    }
+                /* Add the people in the queue */
+                People.AddRange(peopleQueue);
+                peopleQueue.Clear();
 
-                    /* Add the people in the queue */
-                    People.AddRange(peopleQueue);
-                    peopleQueue.Clear();
+                foreach (Person person in People)
+                {
+                    person.NextDay(); // Advance the life of each person
+                }
             }
         }
 
@@ -68,7 +78,7 @@ namespace Helix
         {
             //this.People.Add(person);
             this.peopleQueue.Add(person);
-            this.database.Insert("people", person.GetDBData());
+            //this.database.Insert("people", person.GetDBData());
         }
     }
 }

@@ -159,6 +159,10 @@ namespace Helix
 		    String columns = "";
 		    String values = "";
 		    Boolean returnCode = true;
+
+            SQLiteConnection cnn = new SQLiteConnection(dbConnection);
+            cnn.Open();
+
 		    foreach (KeyValuePair<String, String> val in data)
 		    {
 			    columns += String.Format(" {0},", val.Key.ToString());
@@ -166,17 +170,65 @@ namespace Helix
 		    }
 		    columns = columns.Substring(0, columns.Length - 1);
 		    values = values.Substring(0, values.Length - 1);
+
 		    try
 		    {
-			    this.ExecuteNonQuery(String.Format("insert into {0}({1}) values({2});", tableName, columns, values));
+                SQLiteCommand mycommand = new SQLiteCommand(cnn);
+                mycommand.CommandText = String.Format("insert into {0}({1}) values({2});", tableName, columns, values);
+                mycommand.ExecuteNonQuery();
 		    }
+
+            
 		    catch(Exception fail)
 		    {
 			    //MessageBox.Show(fail.Message);
 			    returnCode = false;
 		    }
+
+            cnn.Close();
 		    return returnCode;
 	    }
+
+
+        public bool Insert(String tableName, List<Dictionary<String, String>> data)
+        {
+            String columns = "";
+            String values = "";
+            Boolean returnCode = true;
+
+            SQLiteConnection cnn = new SQLiteConnection(dbConnection);
+            cnn.Open();
+
+            
+                foreach (KeyValuePair<String, String> val in data[0])
+                {
+                    columns += String.Format(" {0},", val.Key.ToString());
+                    values += String.Format(" '{0}',", val.Value);
+                }
+
+                foreach (Dictionary<string, string> dictionary in data)
+                {
+                    columns = columns.Substring(0, columns.Length - 1);
+                    values = values.Substring(0, values.Length - 1);
+
+                    try
+                    {
+                        SQLiteCommand mycommand = new SQLiteCommand(cnn);
+                        mycommand.CommandText = String.Format("insert into {0}({1}) values({2});", tableName, columns, values);
+                        mycommand.ExecuteNonQuery();
+                    }
+
+
+                    catch (Exception fail)
+                    {
+                        //MessageBox.Show(fail.Message);
+                        returnCode = false;
+                    }
+                }
+
+            cnn.Close();
+            return returnCode;
+        }
 
 	    /// <summary>
 	    ///     Allows the programmer to easily delete all data from the DB.

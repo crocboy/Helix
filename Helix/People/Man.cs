@@ -35,6 +35,8 @@ namespace Helix
                 data.Add("spouse", "-1");
             else
                 data.Add("spouse", Convert.ToString(this.Spouse.ID));
+            if (Name != null && Name != "") // Add name
+                data.Add("name", Name);
 
             data.Add("life_state", Convert.ToString(this.LifeState));
             data.Add("gender", Convert.ToString(this.Gender));

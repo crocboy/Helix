@@ -15,6 +15,32 @@ namespace Helix
             Gender = GENDER_FEMALE;
         }
 
+        /// <summary>
+        /// HAVE A CHILLEN
+        /// </summary>
+        public void PopOneOut()
+        {
+            //if (Spouse != null) // Only have one if we're married :)
+            //{
+                int gender = Utility.GetRandomGender();
+
+                if (gender == Person.GENDER_MALE) // Add a boy
+                {
+                    Man child = new Man(this.world, this.Spouse, this);
+                    this.Children.Add(child);
+                    //this.Spouse.Children.Add(child);
+                    this.world.AddPerson(child);
+                }
+                else  // Add a girl
+                {
+                    Woman child = new Woman(this.world, this.Spouse, this);
+                    this.Children.Add(child);
+                    //this.Spouse.Children.Add(child);
+                    this.world.AddPerson(child);
+                }
+            //}
+        }
+
         override public void NextDay()
         {
             base.NextDay(); // Call super method
@@ -22,9 +48,7 @@ namespace Helix
             /* Spawn a child every once in a while */
             if(Age % 10000 == 0)
             {
-                Woman child = new Woman(world, this.Spouse, this);
-
-                this.world.AddPerson(child);
+                PopOneOut();
             }
         }
 
@@ -49,6 +73,9 @@ namespace Helix
                 data.Add("spouse", "-1");
             else
                 data.Add("spouse", Convert.ToString(this.Spouse.ID));
+
+            if (Name != null && Name != "") // Add name
+                data.Add("name", Name);
 
             data.Add("life_state", Convert.ToString(this.LifeState));
             data.Add("gender", Convert.ToString(this.Gender));
