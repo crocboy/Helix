@@ -56,6 +56,42 @@ namespace Helix
             }
         }
 
+
+        /// <summary>
+        /// Get the first name of this person
+        /// </summary>
+        /// <returns>First name, or null of none exists</returns>
+        public String GetFirstName()
+        {
+            if (Name == null)
+                return Name.Split(' ')[0].Trim();
+            else return null;
+        }
+
+        /// <summary>
+        /// Get the last name of this person
+        /// </summary>
+        /// <returns>Last name, or null of none exists</returns>
+        public String GetLastName()
+        {
+            if (Name != null)
+                return Name.Split(' ')[1].Trim();
+            else return "";
+        }
+
+        /// <summary>
+        /// Set the surname of this person
+        /// </summary>
+        /// <param name="surname">New surname</param>
+        public void SetLastName(String surname)
+        {
+            String first = GetFirstName();
+
+            if(first != null)
+                this.Name = GetFirstName() + " " + surname;
+        }
+
+
         /// <summary>
         /// Get a Dictionary of data suitable for inserting into the database
         /// </summary>
@@ -64,5 +100,25 @@ namespace Helix
         {
             throw new NotImplementedException("Person.GetDBData() not implemented!");
         }
+
+
+        #region Static methods
+
+        /// <summary>
+        /// Marry two people
+        /// </summary>
+        /// <param name="man">Husband</param>
+        /// <param name="woman">Wife</param>
+        public static void Marry(Man man, Woman woman)
+        {
+            man.Spouse = woman;
+            woman.Spouse = man;
+
+            woman.SetLastName(man.GetLastName());
+            man.Children = woman.Children;
+        }
+
+
+        #endregion
     }
 }

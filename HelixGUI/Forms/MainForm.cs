@@ -14,6 +14,7 @@ namespace HelixGUI
     public partial class MainForm : Form
     {
         private Simulation helix;
+        private SimConfig simConfig = new SimConfig();
 
         public MainForm()
         {
@@ -67,18 +68,14 @@ namespace HelixGUI
         /// </summary>
         public void StartSimulation()
         {
-            SimConfig config = new SimConfig()
-            {
-                DatabasePath = dbNameBox.Text,
-                Days = Convert.ToInt32(daysBox.Text)
-            };
-
             helix = new Simulation();
             helix.ProgressUpdated += OnProgressUpdated;
             helix.SimulationComplete += SimulationComplete;
 
-            logWindow.AppendText("Simulation starting...\n");
-            helix.Start(config);// Run it!
+            logWindow.AppendText("Simulation starting: " + simConfig.Days.ToString() + " days\n");
+
+            simConfig.DatabasePath = dbNameBox.Text;
+            helix.Start(simConfig);// Run it!
         }
 
         /// <summary>
@@ -87,6 +84,12 @@ namespace HelixGUI
         public void StopSimulation()
         {
             helix.Stop();
+        }
+
+        /* Called when the SimConfig changes */
+        private void OnSimConfigChanged(SimConfig newConfig)
+        {
+            this.simConfig = newConfig;
         }
 
 
@@ -120,6 +123,13 @@ namespace HelixGUI
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void editSim_Click(object sender, EventArgs e)
+        {
+            SimEdit simEdit = new SimEdit();
+            simEdit.OnConfigChanged += OnSimConfigChanged;
+            simEdit.Show();
         }
     }
 }

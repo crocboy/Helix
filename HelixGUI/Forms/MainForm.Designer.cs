@@ -37,10 +37,10 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.logWindow = new System.Windows.Forms.TextBox();
             this.clearLogButton = new System.Windows.Forms.Button();
-            this.daysBox = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editSim = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -57,7 +57,7 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(483, 39);
+            this.startButton.Location = new System.Drawing.Point(469, 55);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(75, 23);
             this.startButton.TabIndex = 1;
@@ -137,14 +137,6 @@
             this.clearLogButton.UseVisualStyleBackColor = true;
             this.clearLogButton.Click += new System.EventHandler(this.clearLogButton_Click);
             // 
-            // daysBox
-            // 
-            this.daysBox.Location = new System.Drawing.Point(469, 68);
-            this.daysBox.Name = "daysBox";
-            this.daysBox.Size = new System.Drawing.Size(100, 20);
-            this.daysBox.TabIndex = 9;
-            this.daysBox.Text = "15000";
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -171,12 +163,22 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
+            // editSim
+            // 
+            this.editSim.Location = new System.Drawing.Point(456, 84);
+            this.editSim.Name = "editSim";
+            this.editSim.Size = new System.Drawing.Size(102, 23);
+            this.editSim.TabIndex = 11;
+            this.editSim.Text = "Edit Simulation...";
+            this.editSim.UseVisualStyleBackColor = true;
+            this.editSim.Click += new System.EventHandler(this.editSim_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(670, 449);
-            this.Controls.Add(this.daysBox);
+            this.Controls.Add(this.editSim);
             this.Controls.Add(this.clearLogButton);
             this.Controls.Add(this.logWindow);
             this.Controls.Add(this.groupBox2);
@@ -208,10 +210,10 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox logWindow;
         private System.Windows.Forms.Button clearLogButton;
-        private System.Windows.Forms.TextBox daysBox;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.Button editSim;
     }
 }
 

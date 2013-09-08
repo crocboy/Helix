@@ -14,6 +14,18 @@ namespace Helix
             //
         }
 
+        public override void NextDay()
+        {
+            base.NextDay();
+
+            /* Bachelor check */
+            if (Age > Metrics.BACHELOR_START_AGE) // We're eligable, get married!
+            {
+                if (world.femaleBachelors.Count > 0)
+                    Person.Marry(this, Utility.GetRandom<Woman>(world.femaleBachelors));
+            }
+        }
+
         public override Dictionary<string, string> GetDBData()
         {
             Dictionary<string, string> data = new Dictionary<string, string>();

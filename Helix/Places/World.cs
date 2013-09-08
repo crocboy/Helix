@@ -17,28 +17,38 @@ namespace Helix
 
         public List<Person> peopleQueue = new List<Person>(0);
 
+        /* People are married through these lists! */
+        public List<Man> maleBachelors = new List<Man>(0);
+        public List<Woman> femaleBachelors = new List<Woman>(0);
+
 
         /// <summary>
         /// Public constructor
         /// </summary>
         /// <param name="regions">Number of Regions</param>
+        /// /// <param name="rootCouples">Number of root couples to create</param>
         /// <param name="db">Database to use for simulation</param>
-        public World(int regions, SQLiteDatabase db)
+        public World(int regions, int rootCouples, SQLiteDatabase db)
         {
             this.database = db;
 
-            Man Adam = new Man(this, null, null)
+            for (int i = 0; i < rootCouples; i++)
             {
-                Name = "Adam"
-            };
+                Man man = new Man(this, null, null)
+                {
+                    Name = Utility.GetRandomName(Person.GENDER_MALE)
+                };
 
-            Woman Eve = new Woman(this, null, null)
-            {
-                Name = "Eve"
-            };
+                Woman woman = new Woman(this, null, null)
+                {
+                    Name = Utility.GetRandomName(Person.GENDER_FEMALE)
+                };
 
-            AddPerson(Adam);
-            AddPerson(Eve);
+                Person.Marry(man, woman);
+
+                AddPerson(man);
+                AddPerson(woman);
+            }
         }
 
 
@@ -78,7 +88,7 @@ namespace Helix
         {
             //this.People.Add(person);
             this.peopleQueue.Add(person);
-            //this.database.Insert("people", person.GetDBData());
+            this.database.Insert("people", person.GetDBData());
         }
     }
 }

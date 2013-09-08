@@ -24,6 +24,7 @@ namespace Helix
         private DateTime startTime;
         private Thread simThread;
         private SQLiteDatabase database;
+        private SimConfig simConfig;
         private World world;
         private int days;
         private bool stopSimThread = false;
@@ -41,13 +42,15 @@ namespace Helix
         /// </summary>
         public void Start(SimConfig config)
         {
-            this.days = config.Days;
+            this.simConfig = config;
+
             this.database = new SQLiteDatabase(config.DatabasePath);
             this.database.ClearDB();
 
             simThread = new Thread(RunSimulation)
             {
-                Name = "Simulation Thread"
+                Name = "Simulation Thread",
+                Priority = ThreadPriority.Highest
             };
 
             startTime = DateTime.Now;
@@ -58,7 +61,7 @@ namespace Helix
         {
             while (!stopSimThread)
             {
-                world = new World(1, this.database);
+                world = new World(1, this.simConfig.RootCouples, this.database);
 
                 int stepSize = Convert.ToInt32(Convert.ToDouble(days) / 100f); // 1/100th of the simulation length
                 int progress = 0; // Progress, in percent
@@ -96,16 +99,5 @@ namespace Helix
             TimeSpan span = end - start;
             return span.Milliseconds;
         }
-    }
-
-
-
-    /// <summary>
-    /// A class that provides startup settings for a Helix simulation
-    /// </summary>
-    public class SimConfig
-    {
-        public String DatabasePath = "";
-        public int Days = 0;
     }
 }
