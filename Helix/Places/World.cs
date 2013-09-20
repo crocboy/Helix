@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Text;
 
 namespace Helix
@@ -10,7 +11,7 @@ namespace Helix
     /// </summary>
     public class World  :Region
     {
-        private SQLiteDatabase database;
+        public SQLiteDatabase database;
         private int currentID = 1;
 
         private List<Region> childRegions = new List<Region>(0);
@@ -88,7 +89,79 @@ namespace Helix
         {
             //this.People.Add(person);
             this.peopleQueue.Add(person);
-            this.database.Insert("people", person.GetDBData());
+            //this.database.Insert("people", person.GetDBData());
+        }
+
+        /// <summary>
+        /// Save the family tree for this world.
+        /// </summary>
+        /// <param name="file">Filename</param>
+        public void SaveFamilyFile(String file)
+        {
+            /* Intro stuff */
+            XmlDocument doc = new XmlDocument();
+            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(docNode);
+
+            XmlNode familyNode = doc.CreateElement("Family");
+
+            /* Do attribute junk */
+            XmlAttribute att1 = doc.CreateAttribute("xmlns:xsi");
+            att1.Value = "http://www.w3.org/2001/XMLSchema-instance";
+            familyNode.Attributes.Append(att1);
+
+            XmlAttribute att2 = doc.CreateAttribute("xmlns:xsd");
+            att2.Value = "http://www.w3.org/2001/XMLSchema";
+            familyNode.Attributes.Append(att2);
+
+            XmlAttribute att3 = doc.CreateAttribute("Current");
+            att3.Value = "I1";
+            familyNode.Attributes.Append(att3);
+
+            XmlAttribute att4 = doc.CreateAttribute("CurrentName");
+            att4.Value = "God";
+            familyNode.Attributes.Append(att4);
+
+            XmlAttribute att5 = doc.CreateAttribute("FileVersion");
+            att5.Value = "1.0";
+            familyNode.Attributes.Append(att5);
+
+            XmlNode personListNode = doc.CreateElement("PeopleCollection");
+
+            /** Add every person! */
+            foreach (Person p in People)
+            {
+                XmlNode node = doc.CreateElement("Person");
+                XmlAttribute id = doc.CreateAttribute("Id");
+                id.Value = "I" + p.ID.ToString();
+                node.Attributes.Append(id);
+
+                XmlNode fnNode = doc.CreateElement("FirstName");
+                fnNode.AppendChild(doc.CreateTextNode(p.GetFirstName()));
+                XmlNode lnNode = doc.CreateElement("LastName");
+                lnNode.AppendChild(doc.CreateTextNode(p.GetLastName()));
+                XmlNode lifeNode = doc.CreateElement("IsLiving");
+                lifeNode.AppendChild(doc.CreateTextNode(Convert.ToBoolean(p.LifeState).ToString()));
+
+                node.AppendChild(fnNode);
+                node.AppendChild(lnNode);
+                node.AppendChild(lifeNode);
+
+                personListNode.AppendChild(node);
+            }
+            
+
+            //foreach
+
+            familyNode.AppendChild(personListNode);
+            doc.AppendChild(familyNode);
+
+            doc.Save(file);
+        }
+
+        private void AddPerson(Person p, XmlDocument doc)
+        {
+            //
         }
     }
 }

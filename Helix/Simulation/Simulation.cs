@@ -26,7 +26,6 @@ namespace Helix
         private SQLiteDatabase database;
         private SimConfig simConfig;
         private World world;
-        private int days;
         private bool stopSimThread = false;
 
         /// <summary>
@@ -63,10 +62,10 @@ namespace Helix
             {
                 world = new World(1, this.simConfig.RootCouples, this.database);
 
-                int stepSize = Convert.ToInt32(Convert.ToDouble(days) / 100f); // 1/100th of the simulation length
+                int stepSize = Convert.ToInt32(Convert.ToDouble(simConfig.Days) / 100f); // 1/100th of the simulation length
                 int progress = 0; // Progress, in percent
 
-                for (int i = 0; i < days; i++) // Step through each day
+                for (int i = 0; i < simConfig.Days; i++) // Step through each day
                 {
                     world.AdvanceTime(1);
 

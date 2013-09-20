@@ -8,6 +8,7 @@ namespace Helix
     public class Woman : Person
     {
         public Man Spouse = null;
+        private bool isBachelor = false;
 
 
         public Woman(World w, Man dad, Woman mom) : base(w, dad, mom)
@@ -52,13 +53,20 @@ namespace Helix
             base.NextDay(); // Call super method
 
             /* Put these babes in the market */
-            if (Age > Metrics.BACHELOR_START_AGE)
+            if (Age > Metrics.BACHELOR_START_AGE && !isBachelor)
+            {
                 world.femaleBachelors.Add(this);
-            if (Age > Metrics.BACHELOR_END_AGE)
+                isBachelor = true;
+            }
+
+            if (Age > Metrics.BACHELOR_END_AGE && isBachelor)
+            {
                 world.femaleBachelors.Remove(this);
+                isBachelor = false;
+            }
 
             /* Spawn a child every once in a while */
-            if(Age % 10000 == 0)
+            if(Age % 10000 == 0 && Spouse != null) // Must be married!
             {
                 PopOneOut();
             }
@@ -89,8 +97,9 @@ namespace Helix
             if (Name != null && Name != "") // Add name
                 data.Add("name", Name);
 
-            data.Add("life_state", Convert.ToString(this.LifeState));
-            data.Add("gender", Convert.ToString(this.Gender));
+            data.Add("age", Age.ToString());
+            data.Add("life_state", this.LifeState.ToString());
+            data.Add("gender", this.Gender.ToString());
 
             return data;
         }

@@ -21,8 +21,12 @@ namespace Helix
             /* Bachelor check */
             if (Age > Metrics.BACHELOR_START_AGE) // We're eligable, get married!
             {
-                if (world.femaleBachelors.Count > 0)
+                if (world.femaleBachelors.Count > 0 && this.Spouse == null)
+                {
                     Person.Marry(this, Utility.GetRandom<Woman>(world.femaleBachelors));
+                    this.world.maleBachelors.Remove(this);
+                    this.world.femaleBachelors.Remove(this.Spouse);
+                }
             }
         }
 
@@ -50,8 +54,9 @@ namespace Helix
             if (Name != null && Name != "") // Add name
                 data.Add("name", Name);
 
-            data.Add("life_state", Convert.ToString(this.LifeState));
-            data.Add("gender", Convert.ToString(this.Gender));
+            data.Add("age", Age.ToString());
+            data.Add("life_state", this.LifeState.ToString());
+            data.Add("gender", this.Gender.ToString());
 
             return data;
         }

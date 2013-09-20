@@ -63,7 +63,7 @@ namespace Helix
         /// <returns>First name, or null of none exists</returns>
         public String GetFirstName()
         {
-            if (Name == null)
+            if (Name != null)
                 return Name.Split(' ')[0].Trim();
             else return null;
         }

@@ -54,6 +54,7 @@
     <Compile Include="People\Person.cs" />
     <Compile Include="People\Woman.cs" />
     <Compile Include="Places\Region.cs" />
+    <Compile Include="Simulation\Log.cs" />
     <Compile Include="Simulation\SimConfig.cs" />
     <Compile Include="Simulation\Simulation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
