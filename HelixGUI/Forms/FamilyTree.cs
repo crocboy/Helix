@@ -24,14 +24,5 @@ namespace HelixGUI
         {
 
         }
-
-        /// <summary>
-        /// Load a database into the tree
-        /// </summary>
-        /// <param name="database">Simulation database</param>
-        public void LoadDataSource(SQLiteDatabase database)
-        {
-            //
-        }
     }
 }

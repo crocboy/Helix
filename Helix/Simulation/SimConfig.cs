@@ -10,14 +10,12 @@ namespace Helix
     /// </summary>
     public class SimConfig
     {
-        public String DatabasePath = "";
         public int Days = 50000;
         public int RootCouples = 2;
 
         public override string ToString()
         {
-            String total = "Database: " + DatabasePath + "\n";
-            total += "Days: " + Days.ToString() + "\n";
+            string total = "Days: " + Days.ToString() + "\n";
             total += "Root Couples: " + RootCouples.ToString() + "\n";
 
             return total;

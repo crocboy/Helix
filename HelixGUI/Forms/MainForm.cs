@@ -72,8 +72,6 @@ namespace HelixGUI
             helix.ProgressUpdated += OnProgressUpdated;
             helix.SimulationComplete += SimulationComplete;
 
-            simConfig.DatabasePath = dbNameBox.Text;
-
             logWindow.AppendText("Simulation starting: " + simConfig.ToString() + " days\n");
             helix.Start(simConfig);// Run it!
         }
@@ -107,12 +105,6 @@ namespace HelixGUI
         {
             this.Invoke((MethodInvoker)delegate // Runs this on UI thread
             {
-                logWindow.AppendText("Adding people to database...\n");
-                foreach (Person p in world.People)
-                {
-                    world.database.Insert("people", p.GetDBData());
-                }
-
                 world.SaveFamilyFile("tree.family");
 
                 logWindow.AppendText("Done adding!\n");

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Threading;
-using System.Data.SQLite;
 
 namespace Helix
 {
@@ -23,7 +22,6 @@ namespace Helix
 
         private DateTime startTime;
         private Thread simThread;
-        private SQLiteDatabase database;
         private SimConfig simConfig;
         private World world;
         private bool stopSimThread = false;
@@ -43,9 +41,6 @@ namespace Helix
         {
             this.simConfig = config;
 
-            this.database = new SQLiteDatabase(config.DatabasePath);
-            this.database.ClearDB();
-
             simThread = new Thread(RunSimulation)
             {
                 Name = "Simulation Thread",
@@ -60,7 +55,7 @@ namespace Helix
         {
             while (!stopSimThread)
             {
-                world = new World(1, this.simConfig.RootCouples, this.database);
+                world = new World(1, this.simConfig.RootCouples);
 
                 int stepSize = Convert.ToInt32(Convert.ToDouble(simConfig.Days) / 100f); // 1/100th of the simulation length
                 int progress = 0; // Progress, in percent

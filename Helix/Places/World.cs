@@ -11,7 +11,6 @@ namespace Helix
     /// </summary>
     public class World  :Region
     {
-        public SQLiteDatabase database;
         private int currentID = 1;
 
         private List<Region> childRegions = new List<Region>(0);
@@ -28,10 +27,8 @@ namespace Helix
         /// </summary>
         /// <param name="regions">Number of Regions</param>
         /// /// <param name="rootCouples">Number of root couples to create</param>
-        /// <param name="db">Database to use for simulation</param>
-        public World(int regions, int rootCouples, SQLiteDatabase db)
+        public World(int regions, int rootCouples)
         {
-            this.database = db;
 
             for (int i = 0; i < rootCouples; i++)
             {
@@ -87,9 +84,7 @@ namespace Helix
         /// <param name="person">Person to be added</param>
         public void AddPerson(Person person)
         {
-            //this.People.Add(person);
             this.peopleQueue.Add(person);
-            //this.database.Insert("people", person.GetDBData());
         }
 
         /// <summary>

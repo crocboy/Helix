@@ -30,7 +30,6 @@
         {
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.startButton = new System.Windows.Forms.Button();
-            this.dbNameBox = new System.Windows.Forms.TextBox();
             this.browseButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -41,6 +40,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editSim = new System.Windows.Forms.Button();
+            this.dbNameBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -64,14 +64,6 @@
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
-            // 
-            // dbNameBox
-            // 
-            this.dbNameBox.Location = new System.Drawing.Point(6, 43);
-            this.dbNameBox.Name = "dbNameBox";
-            this.dbNameBox.Size = new System.Drawing.Size(233, 20);
-            this.dbNameBox.TabIndex = 2;
-            this.dbNameBox.Text = "C:\\Users\\Joey\\Desktop\\helix.s3db";
             // 
             // browseButton
             // 
@@ -173,6 +165,14 @@
             this.editSim.UseVisualStyleBackColor = true;
             this.editSim.Click += new System.EventHandler(this.editSim_Click);
             // 
+            // dbNameBox
+            // 
+            this.dbNameBox.Location = new System.Drawing.Point(6, 43);
+            this.dbNameBox.Name = "dbNameBox";
+            this.dbNameBox.Size = new System.Drawing.Size(233, 20);
+            this.dbNameBox.TabIndex = 2;
+            this.dbNameBox.Text = "C:\\Users\\Joey\\Desktop\\helix.s3db";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,7 +203,6 @@
 
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button startButton;
-        private System.Windows.Forms.TextBox dbNameBox;
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -214,6 +213,7 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.Button editSim;
+        private System.Windows.Forms.TextBox dbNameBox;
     }
 }
 
