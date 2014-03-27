@@ -68,14 +68,14 @@ namespace Helix
         /// <returns>Random name, in the form "FIRST LAST"</returns>
         public static String GetRandomName(int gender)
         {
-            List<String> firstNames = GetFile("C:\\Users\\Joey\\Desktop\\NAMES_MALE.txt");
-            List<String> surnames = GetFile("C:\\Users\\Joey\\Desktop\\SURNAMES.txt");
+            List<String> firstNames = GetFile("Files\\MALE_NAMES.txt");
+            List<String> surnames = GetFile("Files\\SURNAMES.txt");
 
             if(gender == Person.GENDER_FEMALE)
-                firstNames = GetFile("C:\\Users\\Joey\\Desktop\\NAMES_FEMALE.txt");
+                firstNames = GetFile("Files\\FEMALE_NAMES.txt");
 
-            int first = GetRandom(firstNames.Count);
-            int last = GetRandom(surnames.Count);
+            int first = GetRandom(firstNames.Count - 1);
+            int last = GetRandom(surnames.Count - 1);
 
             return firstNames[first] + " " + surnames[last]; // Return the concatenated name
         }

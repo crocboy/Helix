@@ -30,8 +30,6 @@
         {
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.startButton = new System.Windows.Forms.Button();
-            this.browseButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.logWindow = new System.Windows.Forms.TextBox();
@@ -40,8 +38,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editSim = new System.Windows.Forms.Button();
-            this.dbNameBox = new System.Windows.Forms.TextBox();
-            this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,30 +61,8 @@
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
-            // browseButton
-            // 
-            this.browseButton.Location = new System.Drawing.Point(245, 41);
-            this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(75, 23);
-            this.browseButton.TabIndex = 3;
-            this.browseButton.Text = "Browse...";
-            this.browseButton.UseVisualStyleBackColor = true;
-            this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Simulation database:";
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dbNameBox);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.browseButton);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(328, 134);
@@ -114,6 +88,7 @@
             this.logWindow.Location = new System.Drawing.Point(346, 167);
             this.logWindow.Multiline = true;
             this.logWindow.Name = "logWindow";
+            this.logWindow.ReadOnly = true;
             this.logWindow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.logWindow.Size = new System.Drawing.Size(312, 241);
             this.logWindow.TabIndex = 7;
@@ -165,14 +140,6 @@
             this.editSim.UseVisualStyleBackColor = true;
             this.editSim.Click += new System.EventHandler(this.editSim_Click);
             // 
-            // dbNameBox
-            // 
-            this.dbNameBox.Location = new System.Drawing.Point(6, 43);
-            this.dbNameBox.Name = "dbNameBox";
-            this.dbNameBox.Size = new System.Drawing.Size(233, 20);
-            this.dbNameBox.TabIndex = 2;
-            this.dbNameBox.Text = "C:\\Users\\Joey\\Desktop\\helix.s3db";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -190,8 +157,6 @@
             this.Name = "MainForm";
             this.Text = "Helix";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -203,8 +168,6 @@
 
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button startButton;
-        private System.Windows.Forms.Button browseButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox logWindow;
@@ -213,7 +176,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.Button editSim;
-        private System.Windows.Forms.TextBox dbNameBox;
     }
 }
 

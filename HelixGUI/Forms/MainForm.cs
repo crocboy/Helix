@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Data.SQLite;
 using System.Text;
 using System.Windows.Forms;
 using Helix;
@@ -24,18 +23,6 @@ namespace HelixGUI
         private void MainForm_Load(object sender, EventArgs e)
         {
             //
-        }
-
-        /* Browse button was pressed */
-        private void browseButton_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            DialogResult result = fileDialog.ShowDialog();
-
-            if (result == DialogResult.OK)
-            {
-                dbNameBox.Text = fileDialog.FileName;
-            }
         }
 
         private void startButton_Click(object sender, EventArgs args)
@@ -72,7 +59,7 @@ namespace HelixGUI
             helix.ProgressUpdated += OnProgressUpdated;
             helix.SimulationComplete += SimulationComplete;
 
-            logWindow.AppendText("Simulation starting: " + simConfig.ToString() + " days\n");
+            logWindow.AppendText("Simulation starting: " + simConfig.ToString() + "\n");
             helix.Start(simConfig);// Run it!
         }
 
@@ -105,9 +92,8 @@ namespace HelixGUI
         {
             this.Invoke((MethodInvoker)delegate // Runs this on UI thread
             {
-                world.SaveFamilyFile("tree.family");
+                //world.SaveFamilyFile("tree.family");
 
-                logWindow.AppendText("Done adding!\n");
                 startButton.Text = "Start";
                 logWindow.AppendText("Simulation completed in " + time.ToString() + " ms\n");
                 logWindow.AppendText("World had " + world.People.Count.ToString() + " people\n");

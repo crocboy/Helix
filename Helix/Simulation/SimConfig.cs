@@ -15,8 +15,8 @@ namespace Helix
 
         public override string ToString()
         {
-            string total = "Days: " + Days.ToString() + "\n";
-            total += "Root Couples: " + RootCouples.ToString() + "\n";
+            string total = Days.ToString() + " days, ";
+            total += RootCouples.ToString() + " root couples";
 
             return total;
         }
